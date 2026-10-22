@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeuraBrowse - AI Browser</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Tab strip -->
+  <div class="tabstrip">
+    <div id="tabs" class="tabs" role="tablist"></div>
+    <button id="newTab" class="icon-btn" title="New tab" aria-label="New tab">+</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button id="backBtn" class="icon-btn" title="Back" aria-label="Back">&#8592;</button>
+    <button id="fwdBtn" class="icon-btn" title="Forward" aria-label="Forward">&#8594;</button>
+    <button id="reloadBtn" class="icon-btn" title="Reload" aria-label="Reload">&#8635;</button>
+    <button id="homeBtn" class="icon-btn" title="Home" aria-label="Home">&#8962;</button>
+    <form id="omnibox" class="omnibox" autocomplete="off">
+      <input id="omniInput" type="text" placeholder="Search the web or enter an address" aria-label="Search or enter address" maxlength="300">
+    </form>
+    <button id="starBtn" class="icon-btn" title="Bookmark this page" aria-label="Bookmark">&#9734;</button>
+    <button id="panelBtn" class="icon-btn" title="Toggle AI assistant" aria-label="Toggle AI assistant">AI</button>
+    <button id="menuBtn" class="icon-btn" title="Menu" aria-label="Menu">&#8942;</button>
+    <div id="menu" class="menu" hidden>
+      <div id="menuUser" class="menu-user"></div>
+      <button data-act="bookmarks">Bookmarks</button>
+      <button data-act="history">History</button>
+      <button data-act="stats">Database stats</button>
+      <button data-act="auth" id="authItem">Log in</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main id="view" class="view" aria-live="polite"></main>
+
+    <!-- AI assistant side panel -->
+    <aside id="panel" class="panel" hidden>
+      <div class="panel-head">
+        <strong>AI Assistant</strong>
+        <span id="modeBadge" class="badge"></span>
+      </div>
+      <div id="chatLog" class="chat-log"></div>
+      <form id="chatForm" class="chat-form" autocomplete="off">
+        <input id="chatInput" type="text" placeholder="Ask anything..." maxlength="1000" aria-label="Message the AI assistant">
+        <button type="submit">Send</button>
+      </form>
+    </aside>
+  </div>
+
+  <!-- Login / register dialog -->
+  <dialog id="authDialog">
+    <form id="authForm" method="dialog">
+      <h2 id="authTitle">Log in</h2>
+      <label>Username <input id="authUser" required minlength="3" maxlength="30" autocomplete="username"></label>
+      <label>Password <input id="authPass" type="password" required minlength="6" autocomplete="current-password"></label>
+      <p id="authError" class="error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" id="authSwitch" class="link-btn">Create an account</button>
+        <button type="button" id="authCancel">Cancel</button>
+        <button type="submit" class="primary" id="authSubmit">Log in</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
